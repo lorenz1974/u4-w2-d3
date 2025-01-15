@@ -78,13 +78,22 @@ public class Main {
                 String category3 = "Boys";
                 double discount = 0.1;
                 printExerciseHeader("Prodotti con categoria " + category3 + " scontati del " + discount * 100 + "%:");
-                List<Product> discountedProducts = products.stream()
-                                .filter(product -> product.getCategory().equals(category3))
-                                .map(product -> {
-                                        product.setPrice(priceDisconted(product.getPrice(), discount));
-                                        return product;
-                                })
-                                .collect(Collectors.toList());
+
+                // Così cambio il prezzo del prodotto non restituisco un nuovo oggetto!!!
+                // filterProductsByCategory(products, category3)
+                // .forEach(product -> product.setPrice(priceDiscounted(product.getPrice(),
+                // discount)));
+
+                List<Product> discountedProducts = filterProductsByCategory(products, category3)
+                                .stream()
+                                .map(product -> new Product(
+                                                product.getId(),
+                                                product.getName(),
+                                                product.getCategory(),
+                                                priceDiscounted(product.getPrice(), discount)))
+                                .toList();
+
+                // Stampa i prodotti scontati
                 discountedProducts.forEach(System.out::println);
                 ln();
 
@@ -95,7 +104,6 @@ public class Main {
 
                 // Provo scrittura sintetica
                 filterOrdersByDate(orders, startDate, endDate).forEach(System.out::println);
-
                 ln();
         }
 
@@ -103,7 +111,7 @@ public class Main {
         private static List<Product> filterProductsByCategory(List<Product> products, String category) {
                 return products.stream()
                                 .filter(product -> product.getCategory().equals(category))
-                                .collect(Collectors.toList());
+                                .toList();
         }
 
         // Esercizio #4
@@ -114,10 +122,10 @@ public class Main {
                 return orders.stream()
                                 .filter(order -> order.getOrderDate().isAfter(startDate)
                                                 && order.getOrderDate().isBefore(endDate))
-                                .collect(Collectors.toList());
+                                .toList();
         }
 
-        private static double priceDisconted(double price, double discount) {
+        private static double priceDiscounted(double price, double discount) {
                 return price * (1 - discount);
         }
 
