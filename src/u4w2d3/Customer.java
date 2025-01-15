@@ -32,12 +32,4 @@ public class Customer extends AbsClass implements Interfacename {
         this.tier = tier;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + super.getId() +
-                ", name='" + name + '\'' +
-                ", tier=" + tier +
-                '}';
-    }
 }

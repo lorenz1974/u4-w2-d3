@@ -10,6 +10,7 @@ public class Order extends AbsClass {
     private LocalDate deliveryDate;
     private List<Product> products;
     private Customer customer;
+    private double totalPrice;
 
     // Costruttore
     public Order(int id, String status, LocalDate orderDate, LocalDate deliveryDate, List<Product> products,
@@ -20,6 +21,9 @@ public class Order extends AbsClass {
         this.deliveryDate = deliveryDate;
         this.products = products;
         this.customer = customer;
+
+        setTotalPrice();
+
     }
 
     // Costruttore senza data ordine
@@ -31,6 +35,9 @@ public class Order extends AbsClass {
         this.deliveryDate = deliveryDate;
         this.products = products;
         this.customer = customer;
+
+        setTotalPrice();
+
     }
 
     public int getId() {
@@ -77,17 +84,14 @@ public class Order extends AbsClass {
         this.customer = customer;
     }
 
-    // toString, equals e hashCode
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + super.getId() +
-                ", status='" + status + '\'' +
-                ", orderDate=" + orderDate +
-                ", deliveryDate=" + deliveryDate +
-                ", products=" + products +
-                ", customer=" + customer +
-                '}';
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice() {
+        this.totalPrice = products.stream()
+                .map(Product::getPrice)
+                .reduce(0.0, Double::sum);
     }
 
 }

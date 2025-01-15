@@ -17,7 +17,7 @@ public class Main {
                 List<Product> products = new ArrayList<>();
 
                 products.addAll(Arrays.asList(
-                                new Product(1, "Book 1", "Book", 100.0),
+                                new Product(1, "Book 1", "Book", 12345678.99),
                                 new Product(2, "Book 2", "Book", 150.0),
                                 new Product(3, "Book 3", "Book", 90.0),
                                 new Product(4, "Book 4", "Book", 105.0),
@@ -147,6 +147,7 @@ public class Main {
         }
 
         private static double priceDiscounted(double price, double discount) {
+                discount = discount <= 1 ? discount : discount / 100;
                 return price * (1 - discount);
         }
 

@@ -1,8 +1,5 @@
 package u4w2d3;
 
-import java.util.List;
-import java.util.Objects;
-
 public class Product extends AbsClass implements Interfacename {
     private String name;
     private String category;
@@ -45,13 +42,4 @@ public class Product extends AbsClass implements Interfacename {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + super.getId() +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }
