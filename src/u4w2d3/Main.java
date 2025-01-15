@@ -74,14 +74,14 @@ public class Main {
                                 .toList();
 
                 filteredProducts1.forEach(System.out::println);
-                ln();
+                _W("");
 
                 // Esercizio #2
                 String category2 = "Baby";
                 printExerciseHeader("Prodotti con categoria " + category2 + ":");
                 List<Product> filteredProducts2 = filterProductsByCategory(products, category2);
                 filteredProducts2.forEach(System.out::println);
-                ln();
+                _W("");
 
                 // Esercizio #3
                 String category3 = "Boys";
@@ -104,7 +104,7 @@ public class Main {
 
                 // Stampa i prodotti scontati
                 discountedProducts.forEach(System.out::println);
-                ln();
+                _W("");
 
                 // Esercizio #4
                 LocalDate startDate = LocalDate.of(2021, 2, 1);
@@ -125,7 +125,7 @@ public class Main {
                 // .filter(order -> order.getCustomer().getTier() == 2)
                 // forEach(System.out::println);
 
-                ln();
+                _W("");
         }
 
         // Esercizio #2
@@ -150,13 +150,14 @@ public class Main {
                 return price * (1 - discount);
         }
 
-        private static void printExerciseHeader(String text) {
-                System.out.println("-".repeat(50));
-                System.out.println(text);
-                System.out.println("-".repeat(50));
+        public static void _W(String text) {
+                System.out.println(text != null ? text : "");
         }
 
-        public static void ln() {
-                System.out.println();
+        private static void printExerciseHeader(String text) {
+                _W("-".repeat(50));
+                _W(text);
+                _W("-".repeat(50));
         }
+
 }
