@@ -22,13 +22,19 @@ public class Order extends AbsClass {
         this.customer = customer;
     }
 
-    // Getter e Setter
-    public int getId() {
-        return id;
+    // Costruttore senza data ordine
+    public Order(int id, String status, LocalDate deliveryDate, List<Product> products,
+            Customer customer) {
+        super(id);
+        this.status = status;
+        this.orderDate = LocalDate.now();
+        this.deliveryDate = deliveryDate;
+        this.products = products;
+        this.customer = customer;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return super.getId();
     }
 
     public String getStatus() {

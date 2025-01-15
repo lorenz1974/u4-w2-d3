@@ -4,19 +4,16 @@ import java.time.LocalDate; // https://docs.oracle.com/javase/8/docs/api/java/ti
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
         public static void main(String[] args) {
 
-                // 1. Creazione dei clienti
                 Customer customer1 = new Customer(1, "Mario Rossi", 1);
                 Customer customer2 = new Customer(2, "Anna Bianchi", 2);
                 Customer customer3 = new Customer(3, "Luigi Verdi", 3);
 
                 List<Customer> customers = Arrays.asList(customer1, customer2, customer3);
 
-                // 2. Creazione dei prodotti
                 List<Product> products = new ArrayList<>();
 
                 products.addAll(Arrays.asList(
@@ -40,20 +37,25 @@ public class Main {
                                 new Product(14, "Boys Toy 4", "Boys", 24.0),
                                 new Product(15, "Boys Toy 5", "Boys", 27.0)));
 
-                // 3. Creazione degli ordini
                 List<Order> orders = new ArrayList<>();
-                orders.add(new Order(1, "Completed", LocalDate.of(2021, 1, 15), LocalDate.of(2021, 1, 20),
-                                Arrays.asList(products.get(0), products.get(6)), customer1));
+
                 orders.add(new Order(2, "Pending", LocalDate.of(2021, 2, 5), LocalDate.of(2021, 2, 10),
                                 Arrays.asList(products.get(1), products.get(7)), customer2));
+
                 orders.add(new Order(3, "Shipped", LocalDate.of(2021, 3, 15), LocalDate.of(2021, 3, 20),
                                 Arrays.asList(products.get(2), products.get(8)), customer3));
+
                 orders.add(new Order(4, "Completed", LocalDate.of(2021, 4, 1), LocalDate.of(2021, 4, 5),
                                 Arrays.asList(products.get(3), products.get(9)), customer1));
+
                 orders.add(new Order(5, "Pending", LocalDate.of(2021, 5, 10), LocalDate.of(2021, 5, 15),
                                 Arrays.asList(products.get(4), products.get(10)), customer2));
+
                 orders.add(new Order(6, "Completed", LocalDate.of(2021, 6, 15), LocalDate.of(2021, 6, 20),
                                 Arrays.asList(products.get(5), products.get(11)), customer3));
+
+                orders.add(new Order(1, "Completed", LocalDate.of(2021, 1, 15),
+                                Arrays.asList(products.get(0), products.get(6)), customer1));
 
                 // ------------------------------------------------------------------------------------------------------------
 
@@ -61,17 +63,24 @@ public class Main {
                 String category1 = "Book";
                 double price = 100.0;
                 printExerciseHeader("Prodotti con categoria " + category1 + " e prezzo maggiore di " + price + ":");
-                products.stream()
-                                .filter(product -> product.getCategory().equals(category1)
-                                                && product.getPrice() > price)
-                                .forEach(System.out::println);
+                // products.stream()
+                // .filter(product -> product.getCategory().equals(category1)
+                // && product.getPrice() > price)
+                // .forEach(System.out::println);
+
+                List<Product> filteredProducts1 = filterProductsByCategory(products, category1)
+                                .stream()
+                                .filter(product -> product.getPrice() > price)
+                                .toList();
+
+                filteredProducts1.forEach(System.out::println);
                 ln();
 
                 // Esercizio #2
                 String category2 = "Baby";
                 printExerciseHeader("Prodotti con categoria " + category2 + ":");
-                List<Product> filteredProducts = filterProductsByCategory(products, category2);
-                filteredProducts.forEach(System.out::println);
+                List<Product> filteredProducts2 = filterProductsByCategory(products, category2);
+                filteredProducts2.forEach(System.out::println);
                 ln();
 
                 // Esercizio #3
@@ -103,7 +112,19 @@ public class Main {
                 printExerciseHeader("Ordini filtrati (01/02/2021 - 01/04/2021):");
 
                 // Provo scrittura sintetica
-                filterOrdersByDate(orders, startDate, endDate).forEach(System.out::println);
+                List<Order> filteredOrders = filterOrdersByDate(orders, startDate, endDate)
+                                .stream()
+                                .filter(order -> order.getCustomer().getTier() == 2)
+                                .toList();
+
+                filteredOrders.forEach(System.out::println);
+
+                // Se volessi stampare direttamente senza passare per un'altra lista
+                // filterOrdersByDate(orders, startDate, endDate)
+                // .stream()
+                // .filter(order -> order.getCustomer().getTier() == 2)
+                // forEach(System.out::println);
+
                 ln();
         }
 

@@ -12,7 +12,6 @@ public class Customer extends AbsClass implements Interfacename {
         this.tier = tier;
     }
 
-    // Getter e Setter
     public int getId() {
         return super.getId();
     }
